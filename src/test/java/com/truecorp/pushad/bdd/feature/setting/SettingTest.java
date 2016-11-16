@@ -11,6 +11,6 @@ import cucumber.api.junit.Cucumber;
  */
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:feature/userLogin.feature")
+@CucumberOptions(features = "classpath:feature/settings.feature")
 public class SettingTest {
 }
