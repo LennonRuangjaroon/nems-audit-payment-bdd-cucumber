@@ -124,7 +124,7 @@ public class SettingSteps extends AbstractTest {
 
     @When("^user click list user$")
     public void user_click_list_user() throws InterruptedException {
-        Thread.sleep(60000);
+        Thread.sleep(80000);
 
         webDriver.findElement(By.xpath(".//*[@id='rowsResult']/label/a")).click();
     }
@@ -175,7 +175,7 @@ public class SettingSteps extends AbstractTest {
                         By.xpath(".//*[@id='adExclude']"))
                 .click();
     }
-    
+
     @When("^user click save change password datasource$")
     public void user_click_save_change_password_datasource() {
         webDriver
@@ -183,7 +183,6 @@ public class SettingSteps extends AbstractTest {
                         By.xpath(".//*[@id='save-datasource-password']"))
                 .click();
     }
-
 
     @Then("^user should be see alert message \"([^\"]*)\"$")
     public void user_should_be_see_alert_message(String message) throws InterruptedException {
@@ -284,9 +283,10 @@ public class SettingSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='select1']/button")).click();
         webDriver.findElement(By.xpath(".//*[@id='3']/a")).click();
     }
-    
+
     @When("^user click setting list choose change password datasource$")
-    public void user_click_setting_list_choose_change_password_datasource() throws InterruptedException {
+    public void user_click_setting_list_choose_change_password_datasource()
+            throws InterruptedException {
         Thread.sleep(3000);
         webDriver.findElement(By.xpath(".//*[@id='select1']/button")).click();
         webDriver.findElement(By.xpath(".//*[@id='2']/a")).click();
@@ -297,7 +297,7 @@ public class SettingSteps extends AbstractTest {
         Thread.sleep(3000);
         webDriver.findElement(By.xpath(".//*[@id='datasource-password']")).sendKeys(arg1);
     }
-    
+
     @When("^user choose lifestyle name \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void user_choose_lifestyle_name(String arg1, String arg2,
             String arg3) {
