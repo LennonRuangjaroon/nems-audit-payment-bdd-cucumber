@@ -2,7 +2,7 @@ Feature: Testing a pushad Advertisement
   Users should be able Advertisement
   
   Scenario: Users should be able create advertisement and export successful
-    Given user login pushad with "xxx", "yyy"
+    Given user login pushad with "Test1", "123456"
         And user on the create advertisement setup page
         And user input data in form advertisement setup page "BDD"
         And user click save job
@@ -16,7 +16,7 @@ Feature: Testing a pushad Advertisement
         And user click logout
 
   Scenario: Users should be able create advertisement and re-run successful
-    Given user login pushad with "xxx", "yyy"
+    Given user login pushad with "Test1", "123456"
         And user on the create advertisement setup page
         And user input data in form advertisement setup page "BDD"
         And user click save job

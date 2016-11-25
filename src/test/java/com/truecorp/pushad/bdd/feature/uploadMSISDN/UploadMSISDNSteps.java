@@ -37,6 +37,7 @@ public class UploadMSISDNSteps extends AbstractTest {
     private static final Logger logger = LoggerFactory.getLogger(UploadMSISDNSteps.class);
     private static boolean setUpfinished = false;
     private final static String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
+    private final static String JAVA_AWT_HEADLESS = "java.awt.headless";
 
     private WebDriver webDriver;
     private WebElement userNameEle;
@@ -53,7 +54,7 @@ public class UploadMSISDNSteps extends AbstractTest {
             return;
         }
         System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
-        System.setProperty("java.awt.headless", "false");
+        System.setProperty(JAVA_AWT_HEADLESS, "false");
         logger.info("chromeDriver : {}", chromeDriver);
         setUpfinished = true;
     }
@@ -109,7 +110,7 @@ public class UploadMSISDNSteps extends AbstractTest {
 
     @When("^user upload file type \"([^\"]*)\"$")
     public void user_upload_file(String type) throws InterruptedException, AWTException {
-        Thread.sleep(100);
+        Thread.sleep(3000);
         
         String filePath = null;
         if(type.equals("include")) {
@@ -139,7 +140,7 @@ public class UploadMSISDNSteps extends AbstractTest {
             fail("Can't upload file");
         }
         
-        Thread.sleep(8000);
+        Thread.sleep(3000);
         
         webDriver.switchTo().alert().accept();
     }

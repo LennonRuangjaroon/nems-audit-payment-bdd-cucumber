@@ -125,7 +125,7 @@ public class AdvertisementSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[2]/div/label[1]/input"))
                 .click();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         // sleep for get selection life style
         // Life Style 2
         new Select(

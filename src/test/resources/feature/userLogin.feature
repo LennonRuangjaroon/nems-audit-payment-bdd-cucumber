@@ -3,8 +3,8 @@ Feature: Testing a pushad login
 
   Scenario: Users should be able login pushad successful
         Given user on the login page
-        When user provide the username "xxx" 
-            And user provide the password "yyy"
+        When user provide the username "Test1" 
+            And user provide the password "123456"
             And user click login
         Then user should be see page advertisement setup
             And user click logout
@@ -12,13 +12,13 @@ Feature: Testing a pushad login
   Scenario: Users login pushad failed with Werawad session still active
     An active session for this user already exists
         Given user on the login page
-        When user provide the username "xxx" 
-            And user provide the password "yyy"
+        When user provide the username "Test1" 
+            And user provide the password "123456"
             And user click login
         Then user should be see page advertisement setup
             And user open new the login page
-            And user provide the username "xxx" in the new login page
-            And user provide the password "yyy" in the new login page
+            And user provide the username "Test1" in the new login page
+            And user provide the password "123456" in the new login page
             And user click login at new the login page
             And user should be see message "An active session for this user already exists"
             And user click logout

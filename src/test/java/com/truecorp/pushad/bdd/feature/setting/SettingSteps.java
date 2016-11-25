@@ -118,13 +118,13 @@ public class SettingSteps extends AbstractTest {
 
     @When("^user click first list user$")
     public void user_click_first_list_user() throws InterruptedException {
-        Thread.sleep(30000);
+        Thread.sleep(10000);
         webDriver.findElement(By.xpath(".//*[@id='rowsResult']/label[1]/a")).click();
     }
 
     @When("^user click list user$")
     public void user_click_list_user() throws InterruptedException {
-        Thread.sleep(80000);
+        Thread.sleep(20000);
 
         webDriver.findElement(By.xpath(".//*[@id='rowsResult']/label/a")).click();
     }
@@ -186,7 +186,7 @@ public class SettingSteps extends AbstractTest {
 
     @Then("^user should be see alert message \"([^\"]*)\"$")
     public void user_should_be_see_alert_message(String message) throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(6000);
 
         Alert alert = webDriver.switchTo().alert();
         assertEquals(message, alert.getText());
