@@ -3,14 +3,18 @@ package com.truecorp.pushad.bdd.feature.login;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.MalformedURLException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.truecorp.pushad.bdd.AbstractTest;
+import com.truecorp.pushad.bdd.TestHelper;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -23,10 +27,13 @@ import cucumber.api.java.en.When;
 
 @ConfigurationProperties(prefix = "pushad")
 public class UserLoginSteps extends AbstractTest {
+    
+    @Autowired
+    private TestHelper testHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserLoginSteps.class);
-    private static boolean setUpfinished = false;
     private final static String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
+    private static boolean setUpfinished = false;
     
     private WebDriver webDriver;
     private WebDriver webDriverNewWindows;
@@ -35,21 +42,26 @@ public class UserLoginSteps extends AbstractTest {
     
     private String chromeDriver;
     private String url;
+    private String profile;
 
     @Before
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         if (setUpfinished) {
             return;
         }
-        System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
-        logger.info("chromeDriver : {}", chromeDriver);
+        
+        logger.info("profile : {}", profile);
+        if(profile.equals("local")) {
+            System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
+            logger.info("chromeDriver : {}", chromeDriver);
+        }
+        
         setUpfinished = true;
     }
     
     @Given("^user on the login page$")
     public void user_on_the_login_page() throws Throwable {
-        webDriver = getDriver();
-        
+        webDriver = testHelper.getDriver();
         webDriver.get(url + "/login");
     }
 
@@ -106,7 +118,7 @@ public class UserLoginSteps extends AbstractTest {
 
     @Then("^user open new the login page$")
     public void user_open_new_the_login_page() throws Throwable {
-        webDriverNewWindows = getDriver();
+        webDriverNewWindows = testHelper.getDriver();
         webDriverNewWindows.get(url + "/login");
     }
 
@@ -144,6 +156,14 @@ public class UserLoginSteps extends AbstractTest {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
 }// end class

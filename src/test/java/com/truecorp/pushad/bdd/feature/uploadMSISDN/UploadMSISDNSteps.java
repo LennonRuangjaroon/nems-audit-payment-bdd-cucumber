@@ -11,20 +11,18 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.truecorp.pushad.bdd.AbstractTest;
+import com.truecorp.pushad.bdd.TestHelper;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -37,6 +35,9 @@ import cucumber.api.java.en.When;
 
 @ConfigurationProperties(prefix = "pushad")
 public class UploadMSISDNSteps extends AbstractTest {
+    
+    @Autowired
+    private TestHelper testHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(UploadMSISDNSteps.class);
     private static boolean setUpfinished = false;
@@ -52,21 +53,27 @@ public class UploadMSISDNSteps extends AbstractTest {
     private String fileIncludePath;
     private String fileExcludePath;
 
+    private String profile;
+    
     @Before
     public void setUp() {
         if (setUpfinished) {
             return;
         }
-        System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
+        
+        if(profile.equals("local")) {
+            System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
+            logger.info("chromeDriver : {}", chromeDriver);
+        }
+        
         System.setProperty(JAVA_AWT_HEADLESS, "false");
-        logger.info("chromeDriver : {}", chromeDriver);
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
     public void user_login_pushad_with(String username, String password) throws MalformedURLException {
 
-        webDriver = getDriver();
+        webDriver = testHelper.getDriver();
 
         webDriver.get(url + "/login");
         userNameEle = webDriver
@@ -199,6 +206,14 @@ public class UploadMSISDNSteps extends AbstractTest {
 
     public void setFileExcludePath(String fileExcludePath) {
         this.fileExcludePath = fileExcludePath;
+    }
+    
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
 }// end class

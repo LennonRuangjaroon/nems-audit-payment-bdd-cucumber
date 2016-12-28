@@ -17,9 +17,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.truecorp.pushad.bdd.AbstractTest;
+import com.truecorp.pushad.bdd.TestHelper;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -33,6 +35,9 @@ import cucumber.api.java.en.When;
 @ConfigurationProperties(prefix = "pushad")
 public class SettingSteps extends AbstractTest {
 
+    @Autowired
+    private TestHelper testHelper;
+    
     private static final Logger logger = LoggerFactory.getLogger(SettingSteps.class);
     private static boolean setUpfinished = false;
     private final static String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
@@ -45,21 +50,26 @@ public class SettingSteps extends AbstractTest {
     private String url;
 
     private String name;
+    private String profile;
 
     @Before
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         if (setUpfinished) {
             return;
         }
-        System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
-        logger.info("chromeDriver : {}", chromeDriver);
+        
+        if(profile.equals("local")) {
+            System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
+            logger.info("chromeDriver : {}", chromeDriver);
+        }
+        
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
     public void user_login_pushad_with(String username, String password) throws MalformedURLException {
 
-        webDriver = getDriver();
+        webDriver = testHelper.getDriver();
         
         webDriver.get(url + "/login");
         userNameEle = webDriver
@@ -390,6 +400,14 @@ public class SettingSteps extends AbstractTest {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
     
 }// end class
