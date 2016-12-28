@@ -10,12 +10,16 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -60,9 +64,10 @@ public class UploadMSISDNSteps extends AbstractTest {
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) {
+    public void user_login_pushad_with(String username, String password) throws MalformedURLException {
 
-        webDriver = new ChromeDriver();
+        webDriver = getDriver();
+
         webDriver.get(url + "/login");
         userNameEle = webDriver
                 .findElement(By.xpath("html/body/div[1]/div[2]/form/div[2]/div/input"));
@@ -111,11 +116,11 @@ public class UploadMSISDNSteps extends AbstractTest {
     @When("^user upload file type \"([^\"]*)\"$")
     public void user_upload_file(String type) throws InterruptedException, AWTException {
         Thread.sleep(3000);
-        
+
         String filePath = null;
-        if(type.equals("include")) {
+        if (type.equals("include")) {
             filePath = fileIncludePath;
-        }else if (type.equals("exclude")) {
+        } else if (type.equals("exclude")) {
             filePath = fileExcludePath;
         }
 
@@ -139,9 +144,9 @@ public class UploadMSISDNSteps extends AbstractTest {
             e.printStackTrace();
             fail("Can't upload file");
         }
-        
+
         Thread.sleep(3000);
-        
+
         webDriver.switchTo().alert().accept();
     }
 

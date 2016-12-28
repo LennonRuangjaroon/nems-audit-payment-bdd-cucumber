@@ -4,6 +4,7 @@ package com.truecorp.pushad.bdd.feature.advertisement;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +15,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -61,8 +61,11 @@ public class AdvertisementSteps extends AbstractTest {
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) {
-        webDriver = new ChromeDriver();
+    public void user_login_pushad_with(String username, String password)
+            throws MalformedURLException {
+
+        webDriver = getDriver();
+
         webDriver.get(url + "/login");
         userNameEle = webDriver
                 .findElement(By.xpath("html/body/div[1]/div[2]/form/div[2]/div/input"));
@@ -213,9 +216,9 @@ public class AdvertisementSteps extends AbstractTest {
         String[] arr = {
                 "00", "01", "02", "03", "04", "05", "06", "07", "08", "09"
         };
-        
+
         logger.info("time[1] : {}", time[1]);
-        
+
         if (time[1] == "60") {
             logger.info("case time : 60");
             new Select(mm).selectByValue("0" + String.valueOf(0 + 1));
@@ -284,13 +287,13 @@ public class AdvertisementSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='create-form']/div[4]/div/div[2]/button")).click();
         Thread.sleep(3000);
     }
-    
+
     @When("^user click advertisement list$")
     public void user_click_advertisement_list() throws InterruptedException {
         Thread.sleep(100);
         webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[2]/a/span")).click();
     }
-    
+
     @When("^user click delete job name \"([^\"]*)\"$")
     public void user_click_delete_job_name(String jobName) {
         WebElement findElement = webDriver.findElement(By.xpath(
@@ -313,7 +316,7 @@ public class AdvertisementSteps extends AbstractTest {
 
         element.click();
     }
-    
+
     @Then("^user on the advertisement setup page$")
     public void user_on_the_dvertisement_setup_page() {
         webDriver.get(url + "/advertisement/setup");
@@ -403,9 +406,9 @@ public class AdvertisementSteps extends AbstractTest {
     public void user_click_execute_Job() throws Throwable {
         Thread.sleep(6000);
 
-        ArrayList<String> tabs2 = new ArrayList<String> (webDriver.getWindowHandles());
+        ArrayList<String> tabs2 = new ArrayList<String>(webDriver.getWindowHandles());
         webDriver.switchTo().window(tabs2.get(1));
-        
+
         webDriver
                 .findElement(By
                         .xpath(".//*[@id='btnSeccion4']"))

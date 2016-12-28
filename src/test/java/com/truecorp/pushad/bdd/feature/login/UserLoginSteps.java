@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -49,7 +48,8 @@ public class UserLoginSteps extends AbstractTest {
     
     @Given("^user on the login page$")
     public void user_on_the_login_page() throws Throwable {
-        webDriver = new ChromeDriver();
+        webDriver = getDriver();
+        
         webDriver.get(url + "/login");
     }
 
@@ -106,7 +106,7 @@ public class UserLoginSteps extends AbstractTest {
 
     @Then("^user open new the login page$")
     public void user_open_new_the_login_page() throws Throwable {
-        webDriverNewWindows = new ChromeDriver();
+        webDriverNewWindows = getDriver();
         webDriverNewWindows.get(url + "/login");
     }
 
@@ -129,7 +129,7 @@ public class UserLoginSteps extends AbstractTest {
         webDriverNewWindows.findElement(By.xpath("html/body/div[1]/div[2]/form/div[4]/div/button"))
                 .click();
     }
-
+    
     public String getChromeDriver() {
         return chromeDriver;
     }
@@ -145,5 +145,5 @@ public class UserLoginSteps extends AbstractTest {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
 }// end class

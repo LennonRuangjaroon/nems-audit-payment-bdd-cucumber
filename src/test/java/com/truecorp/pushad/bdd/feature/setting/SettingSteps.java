@@ -6,11 +6,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.net.MalformedURLException;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -56,9 +57,10 @@ public class SettingSteps extends AbstractTest {
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) {
+    public void user_login_pushad_with(String username, String password) throws MalformedURLException {
 
-        webDriver = new ChromeDriver();
+        webDriver = getDriver();
+        
         webDriver.get(url + "/login");
         userNameEle = webDriver
                 .findElement(By.xpath("html/body/div[1]/div[2]/form/div[2]/div/input"));
@@ -389,5 +391,5 @@ public class SettingSteps extends AbstractTest {
     public void setUrl(String url) {
         this.url = url;
     }
-
+    
 }// end class

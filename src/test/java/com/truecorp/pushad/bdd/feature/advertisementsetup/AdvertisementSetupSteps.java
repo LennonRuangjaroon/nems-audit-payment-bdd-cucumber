@@ -4,6 +4,7 @@ package com.truecorp.pushad.bdd.feature.advertisementsetup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,7 +12,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -58,8 +58,10 @@ public class AdvertisementSetupSteps extends AbstractTest {
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) {
-        webDriver = new ChromeDriver();
+    public void user_login_pushad_with(String username, String password) throws MalformedURLException {
+        
+        webDriver = getDriver();
+
         webDriver.get(url + "/login");
         userNameEle = webDriver
                 .findElement(By.xpath("html/body/div[1]/div[2]/form/div[2]/div/input"));
@@ -213,7 +215,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
             String jobNameUpdtate) {
         logger.info("user_should_be_see_job_name_in_page_advertisement_setup_list : {}",
                 jobNameUpdtate);
-        
+
         int size = webDriver.findElements(By.xpath("html/body/div[1]/div[2]/div[4]/ul/li")).size();
 
         jobName = jobNameUpdtate;
@@ -295,7 +297,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         By.xpath(".//*[@id='delete_2']"))
                 .click();
     }
-    
 
     @When("^user click delete job name \"([^\"]*)\"$")
     public void user_click_delete_job_name(String jobName) {
@@ -322,13 +323,13 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     @When("^user click pause job name \"([^\"]*)\"$")
     public void user_click_pause_job_name(String jobName) throws InterruptedException {
-        
+
         WebElement findElement = webDriver.findElement(By.xpath(
                 ".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'" + jobName + "')]"));
         String attribute = findElement.getAttribute("href");
         jobId = attribute
                 .replace(url + "/advertisement?adsid=", "");
-        
+
         logger.info("user_click_pause_job_name : {}", jobId);
 
         webDriver.findElement(By
@@ -369,7 +370,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
     @Then("^user should be see job in page advertisement setup list$")
     public void user_should_be_see_job_in_page_advertisement_setup_list() {
         logger.info("user_should_be_see_job_in_page_advertisement_setup_list");
-        
+
         int size = webDriver.findElements(By.xpath("html/body/div[1]/div[2]/div[4]/ul/li")).size();
 
         logger.info("size: {}", size);
@@ -474,7 +475,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 fail("Can't found element advertisement setup list");
             }
         }
-        
+
         int resumeSize = webDriver.findElements(By
                 .xpath(".//*[@id='resume_" + jobId + "']")).size();
 
@@ -484,7 +485,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
     @Then("^user should be see job name \"([^\"]*)\" resume status in page advertisement setup list$")
     public void user_should_be_not_see_job_name_resume_status_in_page_advertisement_setup_list(
             String jobNameUpdtate) {
-
 
         int size = webDriver.findElements(By.xpath("html/body/div[1]/div[2]/div[4]/ul/li")).size();
 
@@ -525,7 +525,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 fail("Can't found element advertisement setup list");
             }
         }
-        
+
         int pauseSize = webDriver.findElements(By
                 .xpath(".//*[@id='pause_" + jobId + "']")).size();
 
