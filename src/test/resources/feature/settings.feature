@@ -61,7 +61,7 @@ Feature: Testing a pushad settings
     Given user login pushad with "Test1", "123456"
     When user click setting
         And user click setting list choose change password datasource
-        And user set data source password "J87654321"
+        And user set data source password "L12345678"
         And user click save change password datasource
     Then user should be see alert message "Success"
         And user click logout 
