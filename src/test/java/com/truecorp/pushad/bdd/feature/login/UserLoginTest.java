@@ -12,9 +12,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:feature/userLogin.feature", plugin = {
-        "html:target/cucumber-html-report", "json:target/cucumber-json-report.json"
-}, tags = {
-        "@login"
+        "html:target/cucumber-html-report-login", "json:target/cucumber-json-report-login.json"
 })
 public class UserLoginTest {
 }
