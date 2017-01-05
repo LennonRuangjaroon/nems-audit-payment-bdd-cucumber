@@ -85,8 +85,10 @@ public class AdvertisementSetupSteps extends AbstractTest {
     }
 
     @Given("^user on the create advertisement setup page$")
-    public void user_on_the_create_advertisement_setup_page() {
+    public void user_on_the_create_advertisement_setup_page() throws InterruptedException {
+        logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
         webDriver.get(url + "/advertisement/create");
+        Thread.sleep(2000);
     }
 
     @Given("^user input data in form advertisement setup page \"([^\"]*)\"$")
@@ -98,8 +100,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
         Date date = DateUtils.addDays(new Date(), 7);
         String endDate = format.format(date);
 
-        Thread.sleep(4000);
-        
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
 
         logger.info("11111111111111111111111111111111111111");
