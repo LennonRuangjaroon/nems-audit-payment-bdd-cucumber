@@ -12,8 +12,6 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:feature/settings.feature", plugin = {
         "html:target/cucumber-html-report", "json:target/cucumber-json-report.json"
-}, tags = {
-        "@setting"
-})
+}, name = "setting")
 public class SettingTest {
 }
