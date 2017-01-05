@@ -248,7 +248,8 @@ public class SettingSteps extends AbstractTest {
     }
 
     @Then("^user should be see new role \"([^\"]*)\"$")
-    public void user_should_be_see_new_role(String roleName) {
+    public void user_should_be_see_new_role(String roleName) throws InterruptedException {
+        Thread.sleep(1000);
         String userrName = getUserName();
 
         String newRoleName = new Select(
