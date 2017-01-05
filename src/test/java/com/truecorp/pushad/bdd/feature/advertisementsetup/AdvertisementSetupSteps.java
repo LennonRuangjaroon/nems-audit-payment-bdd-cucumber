@@ -139,7 +139,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[2]/div/label[1]/input"))
                 .click();
-        Thread.sleep(4000);
+        Thread.sleep(2000);
         // sleep for get selection life style
         // Life Style 2
         new Select(
@@ -181,10 +181,12 @@ public class AdvertisementSetupSteps extends AbstractTest {
         logger.info("3333333333333333333333");
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
-        logger.info("=====================");
+        logger.info("4444");
         // End date
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
-        logger.info("#######################3");
+        logger.info("55555");
+        
+        Thread.sleep(2000);
         // Select Date
         webDriver
                 .findElement(By
@@ -214,6 +216,9 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='create-form']/div[3]/div/div[2]/div[5]/div[2]/div/div/div/label[7]"))
                 .click();
+        
+        logger.info("666");
+        
         // Execution Time
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[1]/option[9]")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[2]/option[11]"))
