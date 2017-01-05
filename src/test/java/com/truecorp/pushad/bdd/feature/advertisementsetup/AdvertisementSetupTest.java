@@ -10,8 +10,7 @@ import cucumber.api.junit.Cucumber;
 /**
  * @author Lennon
  */
-@Ignore
-@RunWith(Cucumber.class)
+//@RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:feature/advertisementSetup.feature")
 public class AdvertisementSetupTest {
 }
