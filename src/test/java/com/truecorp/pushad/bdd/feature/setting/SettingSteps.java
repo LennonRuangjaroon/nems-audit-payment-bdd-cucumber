@@ -383,6 +383,9 @@ public class SettingSteps extends AbstractTest {
                 .xpath(".//*[@id='adsetup']/tbody/tr/td[contains(text(), '" + name
                         + "')]/parent::tr/td[1]"))
                 .getText();
+        
+        logger.info("method getUserName : {}", userrName);
+        
         return userrName;
     }
 
