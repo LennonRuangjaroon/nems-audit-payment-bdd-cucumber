@@ -98,6 +98,8 @@ public class AdvertisementSetupSteps extends AbstractTest {
         Date date = DateUtils.addDays(new Date(), 7);
         String endDate = format.format(date);
 
+        Thread.sleep(4000);
+        
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
 
         logger.info("11111111111111111111111111111111111111");
