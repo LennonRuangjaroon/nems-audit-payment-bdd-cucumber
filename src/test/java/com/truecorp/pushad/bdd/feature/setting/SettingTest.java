@@ -10,7 +10,9 @@ import cucumber.api.junit.Cucumber;
 /**
  * @author Lennon
  */
-//@RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:feature/settings.feature")
+@RunWith(Cucumber.class)
+@CucumberOptions(features = "classpath:feature/settings.feature", plugin = {
+        "html:target/cucumber-html-report", "json:target/cucumber-json-report.json"
+})
 public class SettingTest {
 }
