@@ -100,6 +100,8 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
 
+        logger.info("11111111111111111111111111111111111111");
+        
         // job name
         webDriver
                 .findElement(
@@ -160,7 +162,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='CKtrueExclude']"))
                 .click();
         webDriver.findElement(By.xpath(".//*[@id='trueExclude']")).sendKeys("10");
-
+        logger.info("222222222222222222222222222222");
         // User Time
         webDriver
                 .findElement(By
@@ -175,8 +177,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
-        Thread.sleep(1000);
-        
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
 
