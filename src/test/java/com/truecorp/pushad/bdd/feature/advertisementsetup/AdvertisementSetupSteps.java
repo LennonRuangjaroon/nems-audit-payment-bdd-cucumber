@@ -188,7 +188,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
         logger.info("55555");
         
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         // Select Date
         webDriver
                 .findElement(By
