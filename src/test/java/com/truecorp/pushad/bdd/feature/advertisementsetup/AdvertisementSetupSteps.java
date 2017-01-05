@@ -176,12 +176,13 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
-
+        logger.info("3333333333333333333333");
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
-
+        logger.info("=====================");
         // End date
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
+        logger.info("#######################3");
         // Select Date
         webDriver
                 .findElement(By
@@ -215,7 +216,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[1]/option[9]")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[2]/option[11]"))
                 .click();
-        logger.info("3333333333333333333333");
+       
     }
 
     @Given("^user on page advertisement setup$")
