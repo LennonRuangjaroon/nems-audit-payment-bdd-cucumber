@@ -215,7 +215,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[1]/option[9]")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[2]/option[11]"))
                 .click();
-
+        logger.info("3333333333333333333333");
     }
 
     @Given("^user on page advertisement setup$")
@@ -275,7 +275,9 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     @When("^user click save job$")
     public void user_click_save_job() throws InterruptedException {
+        logger.info("444444444444444444444444");
         webDriver.findElement(By.xpath(".//*[@id='create-form']/div[4]/div/div[2]/button")).click();
+        logger.info("5555555555555555555555555");
         Thread.sleep(6000);
     }
 
