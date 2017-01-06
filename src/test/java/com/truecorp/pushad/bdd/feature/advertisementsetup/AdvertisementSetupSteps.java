@@ -100,12 +100,8 @@ public class AdvertisementSetupSteps extends AbstractTest {
         Date date = DateUtils.addDays(new Date(), 7);
         String endDate = format.format(date);
 
-        Thread.sleep(6000);
-        
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
 
-        logger.info("11111111111111111111111111111111111111");
-        
         // job name
         webDriver
                 .findElement(
@@ -166,7 +162,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='CKtrueExclude']"))
                 .click();
         webDriver.findElement(By.xpath(".//*[@id='trueExclude']")).sendKeys("10");
-        logger.info("222222222222222222222222222222");
+        
         // User Time
         webDriver
                 .findElement(By
@@ -180,15 +176,12 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
-        logger.info("3333333333333333333333");
+
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
-        logger.info("4444");
         // End date
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
-        logger.info("55555");
         
-        Thread.sleep(6000);
         // Select Date
         webDriver
                 .findElement(By
@@ -218,8 +211,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='create-form']/div[3]/div/div[2]/div[5]/div[2]/div/div/div/label[7]"))
                 .click();
-        
-        logger.info("666");
         
         // Execution Time
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[1]/option[9]")).click();
@@ -285,9 +276,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     @When("^user click save job$")
     public void user_click_save_job() throws InterruptedException {
-        logger.info("444444444444444444444444");
         webDriver.findElement(By.xpath(".//*[@id='create-form']/div[4]/div/div[2]/button")).click();
-        logger.info("5555555555555555555555555");
         Thread.sleep(6000);
     }
 
