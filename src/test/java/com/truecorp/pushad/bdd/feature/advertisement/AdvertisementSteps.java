@@ -183,12 +183,10 @@ public class AdvertisementSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
-//        Actions actions = new Actions(webDriver);
-//        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']"));
-//        actions.moveToElement(findElement);
-//        actions.perform();
-        
-        webDriver.manage().window().setPosition(new Point(538, 683));
+        Actions actions = new Actions(webDriver);
+        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='btnSeccion3']"));
+        actions.moveToElement(findElement);
+        actions.perform();
         
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
