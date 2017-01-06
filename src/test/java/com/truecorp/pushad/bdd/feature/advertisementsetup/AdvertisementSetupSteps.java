@@ -188,6 +188,8 @@ public class AdvertisementSetupSteps extends AbstractTest {
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
         // End date
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
+        
+        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until_ck']/span")).click();
 
         // Select Date
         webDriver
