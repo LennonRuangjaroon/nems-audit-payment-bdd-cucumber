@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -184,6 +185,11 @@ public class AdvertisementSetupSteps extends AbstractTest {
         // JavascriptExecutor jse = (JavascriptExecutor) webDriver;
         // jse.executeScript("window.scrollBy(538, 683)", "");
 
+        Actions actions = new Actions(webDriver);
+        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']"));
+        actions.moveToElement(findElement);
+        actions.perform();
+        
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
