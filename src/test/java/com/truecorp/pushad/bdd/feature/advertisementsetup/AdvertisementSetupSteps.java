@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,7 +38,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     @Autowired
     private TestHelper testHelper;
-    
+
     private static final Logger logger = LoggerFactory.getLogger(AdvertisementSetupSteps.class);
     private static boolean setUpfinished = false;
     private final static String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
@@ -59,18 +60,19 @@ public class AdvertisementSetupSteps extends AbstractTest {
         if (setUpfinished) {
             return;
         }
-        
-        if(profile.equals("local")) {
+
+        if (profile.equals("local")) {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        
+
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) throws MalformedURLException {
-        
+    public void user_login_pushad_with(String username, String password)
+            throws MalformedURLException {
+
         webDriver = testHelper.getDriver();
 
         webDriver.get(url + "/login");
@@ -88,7 +90,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
     public void user_on_the_create_advertisement_setup_page() throws InterruptedException {
         logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
         webDriver.get(url + "/advertisement/create");
-        
+
     }
 
     @Given("^user input data in form advertisement setup page \"([^\"]*)\"$")
@@ -162,7 +164,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='CKtrueExclude']"))
                 .click();
         webDriver.findElement(By.xpath(".//*[@id='trueExclude']")).sendKeys("10");
-        
+
         // User Time
         webDriver
                 .findElement(By
@@ -177,11 +179,14 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
+        JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+        jse.executeScript("window.scrollBy(538, 683)", "");
+
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
         // End date
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
-        
+
         // Select Date
         webDriver
                 .findElement(By
@@ -211,12 +216,12 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .findElement(By
                         .xpath(".//*[@id='create-form']/div[3]/div/div[2]/div[5]/div[2]/div/div/div/label[7]"))
                 .click();
-        
+
         // Execution Time
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[1]/option[9]")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_exclude_time']/select[2]/option[11]"))
                 .click();
-       
+
     }
 
     @Given("^user on page advertisement setup$")
@@ -569,5 +574,5 @@ public class AdvertisementSetupSteps extends AbstractTest {
     public void setProfile(String profile) {
         this.profile = profile;
     }
-    
+
 }// end class
