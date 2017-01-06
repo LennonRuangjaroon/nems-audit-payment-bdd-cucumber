@@ -66,7 +66,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-
+        webDriver.manage().window().maximize();
         setUpfinished = true;
     }
 
