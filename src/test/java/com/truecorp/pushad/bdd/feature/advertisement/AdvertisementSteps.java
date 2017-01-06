@@ -75,6 +75,8 @@ public class AdvertisementSteps extends AbstractTest {
     public void user_login_pushad_with(String username, String password)
             throws MalformedURLException {
 
+        webDriver.manage().window().maximize();
+        
         webDriver = testHelper.getDriver();
 
         webDriver.get(url + "/login");

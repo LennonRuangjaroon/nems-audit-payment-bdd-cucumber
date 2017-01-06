@@ -66,14 +66,15 @@ public class AdvertisementSetupSteps extends AbstractTest {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        webDriver.manage().window().maximize();
+        
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
     public void user_login_pushad_with(String username, String password)
             throws MalformedURLException {
-
+        
+        webDriver.manage().window().maximize();
         webDriver = testHelper.getDriver();
 
         webDriver.get(url + "/login");
