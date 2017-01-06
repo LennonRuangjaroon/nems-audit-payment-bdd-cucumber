@@ -103,6 +103,8 @@ public class AdvertisementSetupSteps extends AbstractTest {
         String endDate = format.format(date);
 
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
+        
+        Thread.sleep(6000);
 
         // job name
         webDriver
