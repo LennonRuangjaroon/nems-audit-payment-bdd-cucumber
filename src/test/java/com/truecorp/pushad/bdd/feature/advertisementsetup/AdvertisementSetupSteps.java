@@ -105,7 +105,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
         String endDate = format.format(date);
 
         logger.info("startDate: {}, date: {}, endDate: {}", startDate, date, endDate);
-        
+
         // job name
         webDriver
                 .findElement(
@@ -181,15 +181,15 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
-        JavascriptExecutor jse = (JavascriptExecutor) webDriver;
-        jse.executeScript("window.scrollBy(538, 683)", "");
+        // JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+        // jse.executeScript("window.scrollBy(538, 683)", "");
 
         // Start date, 11/11/2016
+        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
         // End date
+        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
-        
-        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until_ck']/span")).click();
 
         // Select Date
         webDriver
