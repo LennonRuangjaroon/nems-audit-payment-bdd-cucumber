@@ -10,7 +10,6 @@ import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -66,16 +65,16 @@ public class AdvertisementSetupSteps extends AbstractTest {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        
+
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
     public void user_login_pushad_with(String username, String password)
             throws MalformedURLException {
-        
-        webDriver.manage().window().maximize();
+
         webDriver = testHelper.getDriver();
+        webDriver.manage().window().maximize();
 
         webDriver.get(url + "/login");
         userNameEle = webDriver
@@ -91,14 +90,14 @@ public class AdvertisementSetupSteps extends AbstractTest {
     @Given("^user on the create advertisement setup page$")
     public void user_on_the_create_advertisement_setup_page() throws InterruptedException {
         logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
+        webDriver.get(url + "/advertisement/create");
 
     }
 
     @Given("^user input data in form advertisement setup page \"([^\"]*)\"$")
     public void user_input_data_in_form_advertisement_setup_page(String name)
             throws InterruptedException {
-        webDriver.get(url + "/advertisement/create");
-        Thread.sleep(6000);
+        Thread.sleep(100);
 
         jobName = name;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -183,19 +182,14 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
-        // JavascriptExecutor jse = (JavascriptExecutor) webDriver;
-        // jse.executeScript("window.scrollBy(538, 683)", "");
-
         Actions actions = new Actions(webDriver);
-        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']"));
+        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='btnSeccion3']"));
         actions.moveToElement(findElement);
         actions.perform();
-        
+
         // Start date, 11/11/2016
-        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
         // End date
-        webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).click();
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule_until']")).sendKeys(endDate);
 
         // Select Date
