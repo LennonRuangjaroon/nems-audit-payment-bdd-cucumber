@@ -15,6 +15,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -181,6 +182,11 @@ public class AdvertisementSteps extends AbstractTest {
                         .xpath(".//*[@id='time']/tbody/tr[1]/td[3]"))
                 .click();
 
+        Actions actions = new Actions(webDriver);
+        WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']"));
+        actions.moveToElement(findElement);
+        actions.perform();
+        
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
 
