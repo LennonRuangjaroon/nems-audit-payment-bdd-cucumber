@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
 /**
  * @author Lennon
  */
-//@RunWith(Cucumber.class)
+@RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:feature/settings.feature", plugin = {
         "html:target/cucumber-html-report-setting", "json:target/cucumber-json-report-setting.json"
 })
