@@ -7,6 +7,7 @@ import java.net.URL;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,10 @@ public class TestHelper {
             String chromeRemoteDriver = "http://172.17.181.204:33374/wd/hub";
             logger.info("chromeRemoteDriver : {}", chromeRemoteDriver);
 
-            return new RemoteWebDriver(new URL(chromeRemoteDriver),
+            RemoteWebDriver remoteWebDriver = new RemoteWebDriver(new URL(chromeRemoteDriver),
                     DesiredCapabilities.chrome());
+            remoteWebDriver.setFileDetector(new LocalFileDetector());
+            return remoteWebDriver;
         } else {
             return new ChromeDriver();
         }
