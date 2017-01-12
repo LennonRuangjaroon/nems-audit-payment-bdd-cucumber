@@ -5,14 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,7 +29,7 @@ import cucumber.api.java.en.When;
 
 @ConfigurationProperties(prefix = "pushad")
 public class UploadMSISDNSteps extends AbstractTest {
-    
+
     @Autowired
     private TestHelper testHelper;
 
@@ -54,24 +48,25 @@ public class UploadMSISDNSteps extends AbstractTest {
     private String fileExcludePath;
 
     private String profile;
-    
+
     @Before
     public void setUp() {
         if (setUpfinished) {
             return;
         }
-        
-        if(profile.equals("local")) {
+
+        if (profile.equals("local")) {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        
+
         System.setProperty(JAVA_AWT_HEADLESS, "false");
         setUpfinished = true;
     }
 
     @Given("^user login pushad with \"([^\"]*)\", \"([^\"]*)\"$")
-    public void user_login_pushad_with(String username, String password) throws MalformedURLException {
+    public void user_login_pushad_with(String username, String password)
+            throws MalformedURLException {
 
         webDriver = testHelper.getDriver();
 
@@ -122,7 +117,7 @@ public class UploadMSISDNSteps extends AbstractTest {
 
     @When("^user upload file type \"([^\"]*)\"$")
     public void user_upload_file(String type) throws InterruptedException, AWTException {
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         String filePath = null;
         if (type.equals("include")) {
@@ -130,41 +125,24 @@ public class UploadMSISDNSteps extends AbstractTest {
         } else if (type.equals("exclude")) {
             filePath = fileExcludePath;
         }
-
+        
         try {
-            Robot robot = new Robot();
+            WebElement findElement = webDriver.findElement(By.id("fileUpload"));
+            findElement.sendKeys(filePath);
 
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
-            Clipboard clipboard = toolkit.getSystemClipboard();
-            StringSelection strSel = new StringSelection(filePath);
-            clipboard.setContents(strSel, null);
+           webDriver.findElement(By.id("frm-upload")).submit();
 
-            robot.delay(100);
-
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("user_upload_file : {}", e.getMessage());
             fail("Can't upload file");
         }
 
-        Thread.sleep(3000);
-
-        webDriver.switchTo().alert().accept();
     }
 
     @Then("^user should be see alert message \"([^\"]*)\"$")
     public void user_should_be_see_alert_message(String message) throws InterruptedException {
-        Thread.sleep(3000);
-
-        Alert alert = webDriver.switchTo().alert();
-        assertEquals(message, alert.getText());
-
-        webDriver.switchTo().alert().accept();
+        String bodyResponse = webDriver.findElement(By.tagName("body")).getText();
+        assertEquals(bodyResponse, message);
     }
 
     @Then("^user click logout$")
@@ -207,7 +185,7 @@ public class UploadMSISDNSteps extends AbstractTest {
     public void setFileExcludePath(String fileExcludePath) {
         this.fileExcludePath = fileExcludePath;
     }
-    
+
     public String getProfile() {
         return profile;
     }
