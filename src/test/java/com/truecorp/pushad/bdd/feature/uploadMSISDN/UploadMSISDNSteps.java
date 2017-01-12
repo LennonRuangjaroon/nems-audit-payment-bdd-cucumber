@@ -148,6 +148,7 @@ public class UploadMSISDNSteps extends AbstractTest {
 
     @Then("^user click logout$")
     public void user_click_logout() throws InterruptedException {
+        webDriver.get(url + "/advertisement/create");
         Thread.sleep(1000);
 
         webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[6]/a/span")).click();
