@@ -142,7 +142,8 @@ public class UploadMSISDNSteps extends AbstractTest {
     @Then("^user should be see alert message \"([^\"]*)\"$")
     public void user_should_be_see_alert_message(String message) throws InterruptedException {
         String bodyResponse = webDriver.findElement(By.tagName("body")).getText();
-        assertEquals(bodyResponse, message);
+        logger.info("user_should_be_see_alert_message : message : {}, bodyResponse : {}", message, bodyResponse); 
+        assertEquals(message, bodyResponse);
     }
 
     @Then("^user click logout$")
