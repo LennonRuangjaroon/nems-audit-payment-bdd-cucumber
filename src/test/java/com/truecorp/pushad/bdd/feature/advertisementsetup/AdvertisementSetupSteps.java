@@ -68,7 +68,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        // System.setProperty("java.awt.headless", "false");
         setUpfinished = true;
     }
 
@@ -269,7 +268,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobNameUpdtate)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -321,8 +320,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
     public void user_click_no_get_lifestyle() {
         logger.info("user_click_edit : {}", jobId);
         String currentUrl = webDriver.getCurrentUrl();
-        // webDriver.findElement(By.xpath(".//*[@id='cencelsave']")).click();
-
+        
         WebDriverWait waiting = new WebDriverWait(webDriver, 30, 2500);
 
         WebElement element;
@@ -529,7 +527,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -594,7 +592,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -644,7 +642,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+  
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
