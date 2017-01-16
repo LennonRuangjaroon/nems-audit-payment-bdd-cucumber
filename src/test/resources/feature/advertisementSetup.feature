@@ -41,7 +41,7 @@ Feature: Testing a pushad Create Update Delete Advertisement Setup
         Then user should be not see job name "BDDUpdate" in page advertisement setup list 
             And user click logout            
              
-  Scenario: Users should be able create advertisement setup with "boxing" while "boxing" is setting exclude lifestyle     
+  Scenario: Users should be able create advertisement setup with "Wedding" while "Wedding" is setting exclude lifestyle     
         Given user login pushad with "Wanchat", "123456"
              And user click setting
              And user click setting list choose lifestyle exclude
@@ -49,7 +49,7 @@ Feature: Testing a pushad Create Update Delete Advertisement Setup
              And user click save lifestyle
              And user should be see alert message "Success"
         When user on the create advertisement setup page
-        Then user check lifestyle exclude "Wedding"
+        Then user can not choose lifestyle exclude in setup page "Wedding"
              And user click setting
              And user click setting list choose lifestyle exclude
              And user choose lifestyle name "Wedding"

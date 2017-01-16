@@ -290,21 +290,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     }
     
-    @Given("^user check lifestyle exclude \"([^\"]*)\"$")
-    public void user_check_lifestyle_exclude(String lifestyle) throws InterruptedException {
-        logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
-        List<WebElement> allSuggestions = webDriver.findElements(By.xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[2]/div/select/option"));      
-        Boolean checkLifeStyle = false;
-        for (int j = 0; j < allSuggestions.size(); j++) {
-            
-            if(lifestyle.equals(allSuggestions.get(j).getText())) {
-                checkLifeStyle = true;
-            }
-        }
- 
-        assertEquals(false, checkLifeStyle);
-    }
-
     @When("^user click save job$")
     public void user_click_save_job() throws InterruptedException {
         webDriver.findElement(By.xpath(".//*[@id='create-form']/div[4]/div/div[2]/button")).click();
@@ -491,6 +476,21 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
         alert.accept();
 
+    }
+    
+    @Then("^user can not choose lifestyle exclude in setup page \"([^\"]*)\"$")
+    public void user_check_lifestyle_exclude(String lifestyle) throws InterruptedException {
+        logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
+        List<WebElement> allSuggestions = webDriver.findElements(By.xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[2]/div/select/option"));      
+        Boolean checkLifeStyle = false;
+        for (int j = 0; j < allSuggestions.size(); j++) {
+            
+            if(lifestyle.equals(allSuggestions.get(j).getText())) {
+                checkLifeStyle = true;
+            }
+        }
+ 
+        assertEquals(false, checkLifeStyle);
     }
 
     @Then("^user should be see page advertisement setup$")
