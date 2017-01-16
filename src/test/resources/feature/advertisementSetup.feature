@@ -71,7 +71,7 @@ Feature: Testing a pushad Create Update Delete Advertisement Setup
             And user should be see job name "BDD_lifestyle" in page advertisement setup list
             And user click edit
             And user click update
-        Then user click no get lifestyle
+        Then user see notify for lifestyle exclude
             And user click setting list choose lifestyle exclude
             And user choose lifestyle name "Boxing"
             And user click save lifestyle
