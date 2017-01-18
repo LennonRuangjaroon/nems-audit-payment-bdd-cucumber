@@ -414,7 +414,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 .xpath(".//*[@id='resume_" + jobId + "']"))
                 .click();
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
         webDriver.switchTo().alert().accept();
 
