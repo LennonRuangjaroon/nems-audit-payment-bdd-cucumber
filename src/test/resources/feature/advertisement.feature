@@ -9,7 +9,7 @@ Feature: Testing a pushad Advertisement
         And user should be see page advertisement setup
         And user should be see job name "BDD" in page advertisement setup list
     When user click advertisement list
-    Then user should be see job name "BDD" in "" page advertisement list 
+    Then user should be see job name "BDD#1" in "" page advertisement list 
         And user click export job name "BDD#1"
         And user on page advertisement setup
         And user click delete job name "BDD"
@@ -23,7 +23,7 @@ Feature: Testing a pushad Advertisement
         And user should be see page advertisement setup
         And user should be see job name "BDD" in page advertisement setup list
     When user click advertisement list
-    Then user should be see job name "BDD" in "" page advertisement list 
+    Then user should be see job name "BDD#1" in "" page advertisement list 
         And user click re run job name "BDD#1"
         And user click execute Job
         #And user click re run job name "BDD#2"

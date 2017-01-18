@@ -41,7 +41,7 @@ public class AdvertisementSteps extends AbstractTest {
 
     @Autowired
     private TestHelper testHelper;
-    
+
     private static final Logger logger = LoggerFactory.getLogger(AdvertisementSteps.class);
     private static boolean setUpfinished = false;
     private final static String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
@@ -63,12 +63,12 @@ public class AdvertisementSteps extends AbstractTest {
         if (setUpfinished) {
             return;
         }
-        
-        if(profile.equals("local")) {
+
+        if (profile.equals("local")) {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-        
+
         setUpfinished = true;
     }
 
@@ -77,7 +77,7 @@ public class AdvertisementSteps extends AbstractTest {
             throws MalformedURLException {
 
         webDriver = testHelper.getDriver();
-        
+
         webDriver.manage().window().maximize();
 
         webDriver.get(url + "/login");
@@ -186,7 +186,7 @@ public class AdvertisementSteps extends AbstractTest {
         WebElement findElement = webDriver.findElement(By.xpath(".//*[@id='btnSeccion3']"));
         actions.moveToElement(findElement);
         actions.perform();
-        
+
         // Start date, 11/11/2016
         webDriver.findElement(By.xpath(".//*[@id='dtp_schedule']")).sendKeys(startDate);
 
@@ -270,7 +270,8 @@ public class AdvertisementSteps extends AbstractTest {
                 String attribute = findElement.getAttribute("href");
                 jobId = attribute
                         .replace(url + "/advertisement?adsid=", "");
-                System.out.println("attribute : " + jobId);
+                
+                logger.info("attribute: {}", jobId);
                 assertEquals(jobNameUpdtate, findElement.getText());
             } catch (Exception e) {
                 fail("Can't found element advertisement setup list");
@@ -281,7 +282,6 @@ public class AdvertisementSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
                     if (webDriver.getPageSource().contains(jobNameUpdtate)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -290,7 +290,8 @@ public class AdvertisementSteps extends AbstractTest {
                         String attribute = findElement.getAttribute("href");
                         jobId = attribute.replace(
                                 url + "/advertisement?adsid=", "");
-                        System.out.println("attribute : " + jobId);
+                        
+                        logger.info("attribute: {}", jobId);
                         assertEquals(jobNameUpdtate, findElement.getText());
                     }
                 }
@@ -320,7 +321,7 @@ public class AdvertisementSteps extends AbstractTest {
         String attribute = findElement.getAttribute("href");
         jobId = attribute
                 .replace(url + "/advertisement?adsid=", "");
-        System.out.println("attribute : " + jobId);
+        logger.info("attribute: {}", jobId);
 
         webDriver.findElement(By
                 .xpath(".//*[@id='adsetup']/tbody/tr/td/div/div[2]/button[contains(@data-href,'delete/"
@@ -362,7 +363,8 @@ public class AdvertisementSteps extends AbstractTest {
                 String attribute = findElement.getAttribute("href");
                 jobId = attribute
                         .replace(url + "/advertisement?adsid=", "");
-                System.out.println("attribute : " + jobId);
+                
+                logger.info("attribute: {}", jobId);
                 assertEquals(jobName, findElement.getText());
             } catch (Exception e) {
                 fail("Can't found element advertisement setup list");
@@ -382,7 +384,8 @@ public class AdvertisementSteps extends AbstractTest {
                         String attribute = findElement.getAttribute("href");
                         jobId = attribute.replace(
                                 url + "/advertisement?adsid=", "");
-                        System.out.println("attribute : " + jobId);
+                        
+                        logger.info("attribute: {}", jobId);
                         assertEquals(jobName, findElement.getText());
                     }
                 }
@@ -435,54 +438,57 @@ public class AdvertisementSteps extends AbstractTest {
     }
 
     @Then("^user should be see job name \"([^\"]*)\" in \"([^\"]*)\" page advertisement list$")
-    public void user_should_be_see_job_name_in_page_advertisement_list(String arg1, String arg2)
+    public void user_should_be_see_job_name_in_page_advertisement_list(String jobNameRun,
+            String action)
             throws InterruptedException {
-        logger.info("user_should_be_see_job_name_in_page_advertisement_list, arg1: {}, arg2: {}",
-                arg1, arg2);
+        logger.info("user_should_be_see_job_name_in_page_advertisement_list, jobNameRun: {}, action: {}",
+                jobNameRun, action);
 
-        if (!arg2.equals("export") && !arg2.equals("rerun")) {
-            logger.info("arg2: {}", arg2);
+        if (!action.equals("export") && !action.equals("rerun")) {
+            logger.info("arg2: {}", action);
             TimeUnit.MINUTES.sleep(3);
         }
 
         webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[2]/a/span")).click();
 
         int size = webDriver.findElements(By.xpath("html/body/div[1]/div[2]/div[3]/ul")).size();
+        logger.info("jobName: {}, size: {}", jobNameRun, size);
 
-        logger.info("size: {}", size);
+        final String xpathFindJobName = ".//*[@id='adsetup']/tbody/tr[1]/td[1][contains(text(),'"
+                + jobNameRun + "')]";
+        logger.info("xpathFindJobName: {}", xpathFindJobName);
 
         if (size == 0) {
             try {
-                WebElement findElement = webDriver.findElement(By.xpath(
-                        ".//*[@id='adsetup']/tbody/tr/td[contains(text(),'" + jobName + "')]"));
-                String attribute = findElement.getAttribute("href");
-                jobId = attribute
-                        .replace(url + "/advertisement?adsid=", "");
-                System.out.println("attribute : " + jobId);
-                assertEquals(jobName, findElement.getText());
+                String findElementJobName = webDriver.findElement(
+                        By.xpath(xpathFindJobName))
+                        .getText();
+
+                logger.info("findElementJobName: {}", findElementJobName);
+                assertEquals(jobNameRun, findElementJobName);
+
             } catch (Exception e) {
-                fail("Can't found element advertisement setup list");
+                logger.error(e.getMessage());
+                fail("Can't found element advertisement list");
             }
         } else {
             try {
                 size = (size - 4);
                 for (int i = 0; i <= size; i++) {
                     webDriver
-                            .get(url + "/advertisement/setup/" + i);
-                    if (webDriver.getPageSource().contains(jobName)) {
-                        WebElement findElement = webDriver.findElement(
-                                By.xpath(".//*[@id='adsetup']/tbody/tr/td[contains(text(),'"
-                                        + jobName
-                                        + "')]"));
-                        String attribute = findElement.getAttribute("href");
-                        jobId = attribute.replace(
-                                url + "/advertisement?adsid=", "");
-                        System.out.println("attribute : " + jobId);
-                        assertEquals(jobName, findElement.getText());
+                            .get(url + "/advertisement/" + i);
+                    if (webDriver.getPageSource().contains(jobNameRun)) {
+
+                        String findElementJobName = webDriver
+                                .findElement(By.xpath(xpathFindJobName)).getText();
+
+                        logger.info("findElementJobName: {}", findElementJobName);
+                        assertEquals(jobNameRun, findElementJobName);
                     }
                 }
             } catch (Exception e) {
-                fail("Can't found element advertisement setup list");
+                logger.error(e.getMessage());
+                fail("Can't found element advertisement list");
             }
         }
     }
@@ -525,7 +531,7 @@ public class AdvertisementSteps extends AbstractTest {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
     public String getProfile() {
         return profile;
     }
