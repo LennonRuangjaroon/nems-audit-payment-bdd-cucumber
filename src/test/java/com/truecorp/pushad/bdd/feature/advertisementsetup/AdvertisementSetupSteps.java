@@ -4,11 +4,14 @@ package com.truecorp.pushad.bdd.feature.advertisementsetup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.awt.AWTException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -65,7 +68,6 @@ public class AdvertisementSetupSteps extends AbstractTest {
             System.setProperty(WEB_DRIVER_PROPERTY, chromeDriver);
             logger.info("chromeDriver : {}", chromeDriver);
         }
-
         setUpfinished = true;
     }
 
@@ -128,9 +130,11 @@ public class AdvertisementSetupSteps extends AbstractTest {
                         .xpath(".//*[@id='create-form']/div[1]/div/div[2]/div[5]/div[2]/div/label[1]"))
                 .click();
         // Life Style
+
         new Select(webDriver.findElement(
                 By.xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[2]/div/select")))
                         .selectByValue("Boxing");
+
         new Select(webDriver.findElement(
                 By.xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[4]/div/select")))
                         .selectByValue("0");
@@ -264,7 +268,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobNameUpdtate)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -302,6 +306,37 @@ public class AdvertisementSetupSteps extends AbstractTest {
         logger.info("user_click_edit : {}", jobId);
         webDriver.get(
                 url + "/advertisement/update/" + jobId);
+
+    }
+
+    @When("^user click update$")
+    public void user_click_update() {
+        logger.info("user_click_edit : {}", jobId);
+        webDriver.findElement(By.xpath(".//*[@id='btnSeccion3']")).click();
+
+    }
+
+    @When("^user see notify for lifestyle exclude$")
+    public void user_click_no_get_lifestyle() {
+        logger.info("user_click_edit : {}", jobId);
+        String currentUrl = webDriver.getCurrentUrl();
+        
+        WebDriverWait waiting = new WebDriverWait(webDriver, 30, 2500);
+
+        WebElement element;
+        try {
+            element = waiting.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath(".//*[@id='cencelsave']")));
+            element.click();
+        } catch (Exception e) {
+            fail("Modal cannot occur");
+        }
+
+        String currentUrl2 = webDriver.getCurrentUrl();
+        assertEquals(currentUrl, currentUrl2);
+
+        webDriver.get(url + "/advertisement/settings");
 
     }
 
@@ -385,6 +420,81 @@ public class AdvertisementSetupSteps extends AbstractTest {
 
     }
 
+    @When("^user click setting$")
+    public void user_click_setting() throws InterruptedException, AWTException {
+
+        webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[4]/a/span")).click();
+
+        Thread.sleep(2000);
+
+        String currentUrl = webDriver.getCurrentUrl();
+        assertEquals(url + "/advertisement/settings", currentUrl);
+
+    }
+
+    @When("^user click advert setup$")
+    public void user_click_advert_setup() throws InterruptedException, AWTException {
+
+        webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[3]/a/span")).click();
+
+        Thread.sleep(2000);
+
+        String currentUrl = webDriver.getCurrentUrl();
+        assertEquals(url + "/advertisement/setup", currentUrl);
+
+    }
+
+    @When("^user click setting list choose lifestyle exclude$")
+    public void user_click_setting_list_choose_lifestyle_exclude() throws InterruptedException {
+        Thread.sleep(3000);
+        webDriver.findElement(By.xpath(".//*[@id='select1']/button")).click();
+        webDriver.findElement(By.xpath(".//*[@id='3']/a")).click();
+
+        String currentUrl = webDriver.getCurrentUrl();
+        assertEquals(url + "/advertisement/settings#", currentUrl);
+    }
+
+    @When("^user choose lifestyle name \"([^\"]*)\"$")
+    public void user_choose_lifestyle_name(String arg1) {
+        webDriver.findElement(By.xpath(".//*[@id='checkExclude'][@value='" + arg1 + "']"))
+                .click();
+    }
+
+    @When("^user click save lifestyle$")
+    public void user_click_save_lifestyle() {
+        webDriver
+                .findElement(
+                        By.xpath(".//*[@id='adExclude']"))
+                .click();
+    }
+
+    @When("^user should be see alert message \"([^\"]*)\"$")
+    public void user_should_be_see_alert_message(String message) throws InterruptedException {
+        Thread.sleep(6000);
+
+        Alert alert = webDriver.switchTo().alert();
+        assertEquals(message, alert.getText());
+
+        alert.accept();
+
+    }
+
+    @Then("^user can not choose lifestyle exclude in setup page \"([^\"]*)\"$")
+    public void user_check_lifestyle_exclude(String lifestyle) throws InterruptedException {
+        logger.info("user_on_the_create_advertisement_setup_page : {} /advertisement/create", url);
+        List<WebElement> allSuggestions = webDriver.findElements(By.xpath(
+                ".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[2]/div/select/option"));
+        Boolean checkLifeStyle = false;
+        for (int j = 0; j < allSuggestions.size(); j++) {
+
+            if (lifestyle.equals(allSuggestions.get(j).getText())) {
+                checkLifeStyle = true;
+            }
+        }
+
+        assertEquals(false, checkLifeStyle);
+    }
+
     @Then("^user should be see page advertisement setup$")
     public void user_should_be_see_page_advertisement_setup() {
         String currentUrl = webDriver.getCurrentUrl();
@@ -417,7 +527,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -482,7 +592,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
@@ -532,7 +642,7 @@ public class AdvertisementSetupSteps extends AbstractTest {
                 for (int i = 0; i <= size; i++) {
                     webDriver
                             .get(url + "/advertisement/setup/" + i);
-                    // .//*[@id='adsetup']/tbody/tr/td[contains(text(),'Expired')]
+  
                     if (webDriver.getPageSource().contains(jobName)) {
                         WebElement findElement = webDriver.findElement(
                                 By.xpath(".//*[@id='adsetup']/tbody/tr/td/a[contains(text(),'"
