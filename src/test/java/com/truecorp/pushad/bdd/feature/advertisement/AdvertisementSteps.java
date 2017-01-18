@@ -242,9 +242,12 @@ public class AdvertisementSteps extends AbstractTest {
             logger.info("case time : 60");
             new Select(mm).selectByValue("0" + String.valueOf(0 + 1));
         } else if (contains(arr, time[1])) {
-            logger.info("case contains time: 60");
+            logger.info("case contains time arr");
             new Select(mm).selectByValue("0" + String.valueOf(Integer.parseInt(time[1]) + 1));
-        } else {
+        } else if(time[1] == "59") {
+            logger.info("case contains time: 59");
+            new Select(mm).selectByValue("00");
+        }else {
             logger.info("else case time");
             new Select(mm).selectByValue(String.valueOf(Integer.parseInt(time[1]) + 1));
         }
@@ -270,7 +273,7 @@ public class AdvertisementSteps extends AbstractTest {
                 String attribute = findElement.getAttribute("href");
                 jobId = attribute
                         .replace(url + "/advertisement?adsid=", "");
-                
+
                 logger.info("attribute: {}", jobId);
                 assertEquals(jobNameUpdtate, findElement.getText());
             } catch (Exception e) {
@@ -290,7 +293,7 @@ public class AdvertisementSteps extends AbstractTest {
                         String attribute = findElement.getAttribute("href");
                         jobId = attribute.replace(
                                 url + "/advertisement?adsid=", "");
-                        
+
                         logger.info("attribute: {}", jobId);
                         assertEquals(jobNameUpdtate, findElement.getText());
                     }
@@ -337,6 +340,84 @@ public class AdvertisementSteps extends AbstractTest {
         element.click();
     }
 
+    @When("^user click update config job name \"([^\"]*)\"$")
+    public void user_click_update_config_job_name(String arg1) throws InterruptedException {
+        logger.info("user_click_update_config, jobId: {}", jobId);
+        try {
+            webDriver.findElement(
+                    By.xpath(".//*[@id='adsetup']/tbody/tr/td[1][contains(text(), '" + arg1
+                            + "')]/parent::tr/td[5]/a[contains(@href, 'savererun')]"))
+                    .click();
+        } catch (Exception e) {
+            fail("Can't update config");
+        }
+
+    }
+
+    @When("^user update data$")
+    public void user_update_data() throws Throwable {
+
+        ArrayList<String> tabs2 = new ArrayList<String>(webDriver.getWindowHandles());
+        webDriver.switchTo().window(tabs2.get(1));
+
+        Thread.sleep(3000);
+        // Type of SIM
+        webDriver
+                .findElement(By
+                        .xpath(".//*[@id='create-form']/div[1]/div/div[2]/div[5]/div[2]/div/label[2]"))
+                .click();
+
+        // Life Style
+        new Select(
+                webDriver.findElement(By.xpath(
+                        ".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[2]/div/select")))
+                                .selectByValue("Boxing");
+        new Select(
+                webDriver.findElement(By.xpath(
+                        ".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[4]/div/select")))
+                                .selectByValue("0");
+        new Select(
+                webDriver.findElement(By.xpath(
+                        ".//*[@id='create-form']/div[2]/div/div[2]/div[1]/div[6]/div/select")))
+                                .selectByValue("50");
+
+        // And Life Style
+        webDriver
+                .findElement(By
+                        .xpath(".//*[@id='create-form']/div[2]/div/div[2]/div[2]/div/label[1]/input"))
+                .click();
+        Thread.sleep(4000);
+        // sleep for get selection life style
+        // Life Style 2
+        new Select(
+                webDriver.findElement(By.xpath(".//*[@id='lifestyle_2']/div[1]/div[2]/div/select")))
+                        .selectByValue("Sports");
+        new Select(
+                webDriver.findElement(By.xpath(".//*[@id='lifestyle_2']/div[1]/div[4]/div/select")))
+                        .selectByValue("0");
+        new Select(
+                webDriver.findElement(By.xpath(".//*[@id='lifestyle_2']/div[1]/div[6]/div/select")))
+                        .selectByValue("50");
+
+        // True4U SMS Exclude
+        webDriver.findElement(By.xpath(".//*[@id='ture4uExclude']")).clear();
+        webDriver.findElement(By.xpath(".//*[@id='ture4uExclude']")).sendKeys("7");
+
+        // True SMS Exclude
+        webDriver.findElement(By.xpath(".//*[@id='trueExclude']")).clear();
+        webDriver.findElement(By.xpath(".//*[@id='trueExclude']")).sendKeys("12");
+
+        // User Time
+        webDriver.findElement(By.xpath(".//*[@id='time']/tbody/tr[1]/td[4]")).click();
+
+    }
+
+    @When("^user click update job$")
+    public void user_click_update_job() throws InterruptedException {
+        webDriver.findElement(By.xpath(".//*[@id='btnSeccion5']")).click();
+        Thread.sleep(6000);
+    }
+
     @Then("^user on the advertisement setup page$")
     public void user_on_the_dvertisement_setup_page() {
         webDriver.get(url + "/advertisement/setup");
@@ -363,7 +444,7 @@ public class AdvertisementSteps extends AbstractTest {
                 String attribute = findElement.getAttribute("href");
                 jobId = attribute
                         .replace(url + "/advertisement?adsid=", "");
-                
+
                 logger.info("attribute: {}", jobId);
                 assertEquals(jobName, findElement.getText());
             } catch (Exception e) {
@@ -384,7 +465,7 @@ public class AdvertisementSteps extends AbstractTest {
                         String attribute = findElement.getAttribute("href");
                         jobId = attribute.replace(
                                 url + "/advertisement?adsid=", "");
-                        
+
                         logger.info("attribute: {}", jobId);
                         assertEquals(jobName, findElement.getText());
                     }
@@ -441,12 +522,13 @@ public class AdvertisementSteps extends AbstractTest {
     public void user_should_be_see_job_name_in_page_advertisement_list(String jobNameRun,
             String action)
             throws InterruptedException {
-        logger.info("user_should_be_see_job_name_in_page_advertisement_list, jobNameRun: {}, action: {}",
+        logger.info(
+                "user_should_be_see_job_name_in_page_advertisement_list, jobNameRun: {}, action: {}",
                 jobNameRun, action);
 
         if (!action.equals("export") && !action.equals("rerun")) {
             logger.info("arg2: {}", action);
-            TimeUnit.MINUTES.sleep(3);
+            TimeUnit.MINUTES.sleep(4);
         }
 
         webDriver.findElement(By.xpath(".//*[@id='sidenav01']/li[2]/a/span")).click();
@@ -496,6 +578,62 @@ public class AdvertisementSteps extends AbstractTest {
     @Then("^user on page advertisement setup$")
     public void user_on_page_advertisement_setup() {
         webDriver.get(url + "/advertisement/setup");
+    }
+
+    @Then("^user click edit job name \"([^\"]*)\"$")
+    public void user_click_edit_job_name(String arg1) throws Throwable {
+        Thread.sleep(6000);
+        logger.info("user_click_edit : {}", jobId);
+        webDriver.get(url + "/advertisement/update/" + jobId);
+
+        // Type of SIM
+        WebElement selectedTypeofSIM = webDriver
+                .findElement(By.xpath(
+                        ".//*[@id='create-form']/div[1]/div/div[2]/div[5]/div[2]/div/label[2]"));
+        assertEquals("Pre Paid", selectedTypeofSIM.getText());
+
+        // Lifestyle 1
+        WebElement selectedLifestyle = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_1']/div[2]/div/select/option[1]"));
+        assertEquals("Boxing", selectedLifestyle.getText());
+
+        WebElement selectedPercentile0 = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_2']/div[4]/div/select/option[2]"));
+        assertEquals("0%", selectedPercentile0.getText());
+
+        WebElement selectedPercentile50 = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_2']/div[4]/div/select/option[7]"));
+        assertEquals("50%", selectedPercentile50.getText());
+
+        WebElement selectedAnd = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyleE_1']/div/label[1]"));
+        assertEquals("And", selectedAnd.getText());
+
+        // Lifestyle 2
+        WebElement selectedLifestyle2 = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_2']/div[2]/div/select/option[1]"));
+        assertEquals("Sports", selectedLifestyle2.getText().trim());
+
+        WebElement selectedP0 = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_2']/div[4]/div/select/option[2]"));
+        assertEquals("0%", selectedP0.getText());
+
+        WebElement selectedP50 = webDriver
+                .findElement(By.xpath(".//*[@id='lifestyle_2']/div[6]/div/select/option[7]"));
+        assertEquals("50%", selectedP50.getText());
+
+        // True4U SMS Exclude
+        String ture4uExclude = webDriver.findElement(By.id("ture4uExclude")).getAttribute("value");
+        assertEquals("7", ture4uExclude);
+
+        // True SMS Exclude
+        String trueExclude = webDriver.findElement(By.id("trueExclude")).getAttribute("value");
+        assertEquals("12", trueExclude);
+
+        // User Time
+        WebElement UserTime = webDriver.findElement(By.xpath(".//*[@id='time']/tbody/tr[1]/td[4]"));
+        assertEquals("4-0", UserTime.getText());
+
     }
 
     @Then("^user click logout$")
