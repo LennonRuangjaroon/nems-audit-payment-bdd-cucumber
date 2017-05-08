@@ -1,10 +1,11 @@
 
-package com.truecorp.pushad.bdd.feature.login;
+package edu.nems.auditpayment.bdd.feature.login;
 
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
 
+import edu.nems.auditpayment.bdd.AbstractTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,8 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.truecorp.pushad.bdd.AbstractTest;
-import com.truecorp.pushad.bdd.TestHelper;
+import edu.nems.auditpayment.bdd.TestHelper;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;

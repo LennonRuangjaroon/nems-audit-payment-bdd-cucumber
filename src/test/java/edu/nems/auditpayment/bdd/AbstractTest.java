@@ -1,5 +1,5 @@
 
-package com.truecorp.pushad.bdd;
+package edu.nems.auditpayment.bdd;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.SpringApplicationContextLoader;

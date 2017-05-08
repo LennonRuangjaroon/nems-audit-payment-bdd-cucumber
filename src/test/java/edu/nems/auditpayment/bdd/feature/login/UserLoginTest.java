@@ -1,5 +1,5 @@
 
-package com.truecorp.pushad.bdd.feature.login;
+package edu.nems.auditpayment.bdd.feature.login;
 
 import org.junit.runner.RunWith;
 

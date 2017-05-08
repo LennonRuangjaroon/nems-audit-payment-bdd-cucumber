@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>pushad-BDD-cucumber</groupId>
-	<artifactId>pushad-BDD-cucumber</artifactId>
+	<groupId>nems-audit-payment-bdd-cucumber</groupId>
+	<artifactId>nems-audit-payment-bdd-cucumber</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>pushad-api-BDD-cucumber</name>
-	<description>Pushad Behavior Driven Development with Cucumber</description>
+	<name>nems-audit-payment-bdd-cucumber</name>
+	<description>Nems Audit Payment Behavior Driven Development with Cucumber</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -1,5 +1,5 @@
 
-package com.truecorp.pushad.bdd.feature.advertisementsetup;
+package edu.nems.auditpayment.bdd.feature.advertisementsetup;
 
 import org.junit.runner.RunWith;
 

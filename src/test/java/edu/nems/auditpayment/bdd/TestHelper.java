@@ -1,5 +1,5 @@
 
-package com.truecorp.pushad.bdd;
+package edu.nems.auditpayment.bdd;
 
 import java.net.MalformedURLException;
 import java.net.URL;
