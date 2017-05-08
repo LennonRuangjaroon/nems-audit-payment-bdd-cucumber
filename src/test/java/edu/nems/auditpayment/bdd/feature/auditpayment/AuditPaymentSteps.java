@@ -99,6 +99,24 @@ public class AuditPaymentSteps extends AbstractTest {
         assertEquals("Admin Test", payReceiver.getText());
     }
 
+    @Then("^User should a warning message\\.$")
+    public void user_should_a_warning_message() throws InterruptedException {
+        webDriver.get(url + "/payment/Payment");
+        Thread.sleep(1000);
+
+        WebElement payReceiver = webDriver.findElement(By.xpath(".//*[@id='datatable3']/tbody/"));
+        assertNotNull(payReceiver);
+    }
+
+    @Then("^User should not see record the data successfully and then display the data in the table\\.$")
+    public void user_should_not_see_record_the_data_successfully_and_then_display_the_data_in_the_table() throws InterruptedException {
+        webDriver.get(url + "/payment/Payment");
+        Thread.sleep(1000);
+
+        WebElement payReceiver = webDriver.findElement(By.xpath(".//*[@id='datatable3']/tbody/"));
+        assertNull(payReceiver);
+    }
+
     public String getUrl() {
         return url;
     }
