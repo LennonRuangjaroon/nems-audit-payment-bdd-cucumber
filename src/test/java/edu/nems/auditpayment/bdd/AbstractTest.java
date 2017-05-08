@@ -1,6 +1,7 @@
 
 package edu.nems.auditpayment.bdd;
 
+import junit.framework.TestCase;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,5 +14,5 @@ import org.springframework.test.context.ContextConfiguration;
 @SpringApplicationConfiguration(classes = TestApplication.class)
 @ContextConfiguration(classes = TestApplication.class, loader = SpringApplicationContextLoader.class)
 @ActiveProfiles("development,local")
-public abstract class AbstractTest {
+public abstract class AbstractTest extends TestCase {
 }
