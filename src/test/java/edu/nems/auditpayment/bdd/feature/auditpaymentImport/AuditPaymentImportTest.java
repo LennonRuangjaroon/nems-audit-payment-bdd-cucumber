@@ -24,7 +24,7 @@ import java.io.IOException;
 public class AuditPaymentImportTest {
 
     private static ChromeDriverService service;
-    private static String chromeDriver = "/Users/lennon/Documents/codes/nems-audit-payment-bdd-cucumber/src/test/resources/driver/chromedriver";
+    private static String chromeDriver = "src/test/resources/driver/chromedriver";
 
     @BeforeClass
     public static void createAndStartService() throws IOException {

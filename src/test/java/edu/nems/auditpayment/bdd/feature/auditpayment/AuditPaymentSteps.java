@@ -24,7 +24,7 @@ import java.net.URL;
 @ConfigurationProperties(prefix = "nems")
 public class AuditPaymentSteps extends AbstractTest {
 
-    private String chromeDriverServiceHost = "http://localhost:4500";
+    private final String CHROME_DRIVER_SERVICE_HOST = "http://localhost:4500";
 
     private WebDriver webDriver;
     private String chromeDriver;
@@ -32,7 +32,7 @@ public class AuditPaymentSteps extends AbstractTest {
 
     @Before
     public void setUp() throws IOException {
-        webDriver = new RemoteWebDriver(new URL(String.format(chromeDriverServiceHost)),
+        webDriver = new RemoteWebDriver(new URL(String.format(CHROME_DRIVER_SERVICE_HOST)),
                 DesiredCapabilities.chrome());
     }
 
